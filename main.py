@@ -20,23 +20,23 @@ def get_todos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 # Read a specific Todo item by ID
 @app.get("/todos/{todo_id}")
 def get_todo(todo_id: int, db: Session = Depends(get_db)):
-    db_todo = crud.get_todo_by_id(db=db, todo_id=todo_id)
-    if db_todo is None:
+    todo = crud.get_todo_by_id(db=db, todo_id=todo_id)
+    if todo is None:
         raise HTTPException(status_code=404, detail="Todo not found")
-    return db_todo
+    return todo
 
 # Update a Todo item by ID
 @app.put("/todos/{todo_id}")
 def update_todo(todo_id: int, title: str, description: str, completed: bool, db: Session = Depends(get_db)):
-    db_todo = crud.update_todo(db=db, todo_id=todo_id, title=title, description=description, completed=completed)
-    if db_todo is None:
+    todo = crud.update_todo(db=db, todo_id=todo_id, title=title, description=description, completed=completed)
+    if todo is None:
         raise HTTPException(status_code=404, detail="Todo not found")
-    return db_todo
+    return todo
 
 # Delete a Todo item by ID
 @app.delete("/todos/{todo_id}")
 def delete_todo(todo_id: int, db: Session = Depends(get_db)):
-    db_todo = crud.delete_todo(db=db, todo_id=todo_id)
-    if db_todo is None:
+    todo = crud.delete_todo(db=db, todo_id=todo_id)
+    if todo is None:
         raise HTTPException(status_code=404, detail="Todo not found")
     return {"message": "Todo deleted successfully"}

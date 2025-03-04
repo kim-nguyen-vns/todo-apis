@@ -4,11 +4,11 @@ from models import Todo
 
 # Create a new Todo item
 def create_todo(db: Session, title: str, description: str):
-    db_todo = Todo(title=title, description=description)
-    db.add(db_todo)
+    todo = Todo(title=title, description=description)
+    db.add(todo)
     db.commit()
-    db.refresh(db_todo)
-    return db_todo
+    db.refresh(todo)
+    return todo
 
 # Get all Todo items
 def get_todos(db: Session, skip: int = 0, limit: int = 100):
@@ -20,19 +20,19 @@ def get_todo_by_id(db: Session, todo_id: int):
 
 # Update an existing Todo
 def update_todo(db: Session, todo_id: int, title: str, description: str, completed: bool):
-    db_todo = db.query(Todo).filter(Todo.id == todo_id).first()
-    if db_todo:
-        db_todo.title = title
-        db_todo.description = description
-        db_todo.completed = completed
+    todo = db.query(Todo).filter(Todo.id == todo_id).first()
+    if todo:
+        todo.title = title
+        todo.description = description
+        todo.completed = completed
         db.commit()
-        db.refresh(db_todo)
-    return db_todo
+        db.refresh(todo)
+    return todo
 
 # Delete a Todo item
 def delete_todo(db: Session, todo_id: int):
-    db_todo = db.query(Todo).filter(Todo.id == todo_id).first()
-    if db_todo:
-        db.delete(db_todo)
+    todo = db.query(Todo).filter(Todo.id == todo_id).first()
+    if todo:
+        db.delete(todo)
         db.commit()
-    return db_todo
+    return todo

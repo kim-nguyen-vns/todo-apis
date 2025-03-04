@@ -17,7 +17,7 @@ SQLALCHEMY_DATABASE_URL = "mysql://user:password@localhost/mariadb"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Create a session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # Define the Todo model
 class Todo(Base):
