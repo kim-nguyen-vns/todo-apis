@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: mariadb:10
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password  # Root password for MariaDB
+      MYSQL_DATABASE: mariadb         # The database to create
+      MYSQL_USER: user                  # A custom user
+      MYSQL_PASSWORD: password      # Password for the custom user
+    ports:
+      - "3306:3306"                     # Expose the MariaDB port to the host machine
+    volumes:
+      - mariadb_data:/var/lib/mysql     # Persist data across container restarts
+
+volumes:
+  mariadb_data:  # Define volume for MariaDB data persistence
